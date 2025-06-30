@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Domain.Events;
 
 namespace Domain.Entities
 {
@@ -18,16 +19,16 @@ namespace Domain.Entities
             public DateTime CreatedAt { get; private set; }
 
             public List<OrderItem> Items { get; private set; }
+            private Order() { }
 
-            public Order(Guid customerId, List<OrderItem> items)
+            public Order(OrderCreatedEvent e)
             {
-                Id = Guid.NewGuid();
-                CustomerId = customerId;
-                CreatedAt = DateTime.UtcNow;
-                Items = items ?? new List<OrderItem>();
+                Id = e.AggregateId;
+                CustomerId = e.CustomerId;
+                CreatedAt = e.OccurredAt;
                 Status = OrderStatus.Pending;
+                Items = e.ProductIds.Select(id => new OrderItem(id, 1, 0)).ToList(); // placeholder
             }
-
             public void Confirm()
             {
                 if (Status != OrderStatus.Pending)
@@ -43,6 +44,30 @@ namespace Domain.Entities
 
                 Status = OrderStatus.Cancelled;
             }
+            public static (Order order, OrderCreatedEvent @event) Create(
+                Guid customerId,
+                List<OrderItem> items)
+            {
+                var order = new Order
+                {
+                    Id = Guid.NewGuid(),
+                    CustomerId = customerId,
+                    CreatedAt = DateTime.UtcNow,
+                    Items = items ?? new(),
+                    Status = OrderStatus.Pending
+                };
+
+                var productIds = items.Select(i => i.ProductId).ToList();
+
+                var @event = new OrderCreatedEvent(
+                    order.Id,
+                    customerId,
+                    productIds
+                );
+
+                return (order, @event);
+            }
+
         }
     }
 }
