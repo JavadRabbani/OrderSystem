@@ -15,6 +15,7 @@ using Moq;
 
 namespace Unit.Application.Orders.Services
 {
+    [Collection("SharedTestCollection")]
     public class OrderApplicationServiceTests
     {
         [Fact]
@@ -60,6 +61,44 @@ namespace Unit.Application.Orders.Services
 
             validatorMock.Verify(v => v.ValidateAsync(command, It.IsAny<CancellationToken>()), Times.Once);
             eventStoreMock.Verify(s => s.SaveAsync(It.IsAny<IEvent>(), It.IsAny<CancellationToken>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task CreateOrderAsync_ShouldThrowValidationException_WhenInputIsInvalid()
+        {
+            // Arrange
+            var command = new CreateOrderCommand
+            {
+                CustomerId = Guid.Empty, // نامعتبر
+                Items = new List<OrderItemDto>() // خالی
+            };
+
+            var validationErrors = new List<ValidationFailure>
+            {
+                new ValidationFailure("CustomerId", "CustomerId is required"),
+                new ValidationFailure("Items", "At least one item is required")
+            };
+
+            var validatorMock = new Mock<IValidator<CreateOrderCommand>>();
+            validatorMock
+                .Setup(v => v.ValidateAsync(command, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new ValidationResult(validationErrors));
+
+            var eventStoreMock = new Mock<IEventStore>();
+
+            var service = new OrderApplicationService(validatorMock.Object, eventStoreMock.Object);
+
+            // Act
+            Func<Task> act = () => service.CreateOrderAsync(command);
+
+            // Assert
+            await act.Should()
+                .ThrowAsync<ValidationException>()
+                .WithMessage("*CustomerId is required*");
+
+            eventStoreMock.Verify(
+                s => s.SaveAsync(It.IsAny<IEvent>(), It.IsAny<CancellationToken>()),
+                Times.Never);
         }
     }
 }
