@@ -1,8 +1,8 @@
 ﻿using Application.Orders.Interfaces;
 using Application.Orders.Services;
 using Application.Orders.Validators;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using FluentValidation.;
 
 namespace Application.StartupExtensions
 {
