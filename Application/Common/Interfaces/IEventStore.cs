@@ -10,5 +10,9 @@ namespace Application.Common.Interfaces
     public interface IEventStore
     {
         Task SaveAsync(IEvent @event, CancellationToken cancellationToken = default);
+
+        void Save(IEvent @event);
+
+        IEnumerable<IEvent> GetEvents(Guid aggregateId);
     }
 }

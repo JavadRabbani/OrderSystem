@@ -7,10 +7,10 @@ using Domain.Events;
 
 namespace Infrastructure.EventStore
 {
-    public interface IEventStore
-    {
-        void Save(IEvent @event);
+    //public interface IEventStore
+    //{
+    //    void Save(IEvent @event);
 
-        IEnumerable<IEvent> GetEvents(Guid aggregateId);
-    }
+    //    IEnumerable<IEvent> GetEvents(Guid aggregateId);
+    //}
 }
