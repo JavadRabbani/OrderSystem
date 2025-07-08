@@ -6,6 +6,7 @@ namespace API.Extensions
     {
         public static WebApplication UseCustomMiddlewares(this WebApplication app)
         {
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -13,7 +14,7 @@ namespace API.Extensions
             }
 
             app.UseAuthorization();
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             return app;
         }
     }

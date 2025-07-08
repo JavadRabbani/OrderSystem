@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using SharedKernel.Dto;
+using FluentValidation;
 
 namespace SharedKernel.Middlewares
 {
@@ -34,8 +28,8 @@ namespace SharedKernel.Middlewares
                 context.Response.StatusCode = StatusCodes.Status400BadRequest;
                 context.Response.ContentType = "application/json";
 
-                var error = ex.ValidationResult.ErrorMessage;
-                var result = ApiResult<string>.Fail("Validation failed", new List<string>() { error });
+                var errors = ex.Errors.Select(x => x.ErrorMessage).ToList();
+                var result = ApiResult<string>.Fail("Validation failed", errors);
 
                 await context.Response.WriteAsJsonAsync(result);
             }
