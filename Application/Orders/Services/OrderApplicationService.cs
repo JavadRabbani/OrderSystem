@@ -5,6 +5,7 @@ using FluentValidation;
 using Application.Common.Interfaces;
 using Application.Orders.Interfaces;
 using Mapster;
+using SharedKernel.Dto;
 
 namespace Application.Orders.Services
 {
@@ -22,7 +23,7 @@ namespace Application.Orders.Services
             _eventStore = eventStore;
         }
 
-        public async Task<Guid> CreateOrderAsync(CreateOrderCommand command, CancellationToken ct = default)
+        public async Task<ApiResult<Guid>> CreateOrderAsync(CreateOrderCommand command, CancellationToken ct = default)
         {
             var validation = await _validator.ValidateAsync(command, ct);
 
@@ -36,7 +37,7 @@ namespace Application.Orders.Services
 
                 await _eventStore.SaveAsync(@event, ct);
 
-                return order.Id;
+                return ApiResult<Guid>.Ok(order.Id, "Order_Created");
             }
             catch (Exception e)
             {

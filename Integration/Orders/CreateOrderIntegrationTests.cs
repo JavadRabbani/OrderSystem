@@ -43,9 +43,9 @@ namespace Integration.Orders
             var result = await service.CreateOrderAsync(command);
 
             // Assert
-            result.Should().NotBeEmpty();
+            result.Data.Should().NotBeEmpty();
 
-            var events = eventStore.GetEvents(result);
+            var events = eventStore.GetEvents(result.Data);
 
             events.Should().NotBeEmpty();
 

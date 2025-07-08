@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharedKernel.Dto;
 
 namespace Application.Orders.Interfaces
 {
     public interface IOrderApplicationService
     {
-        Task<Guid> CreateOrderAsync(CreateOrderCommand command, CancellationToken ct = default);
+        Task<ApiResult<Guid>> CreateOrderAsync(CreateOrderCommand command, CancellationToken ct = default);
     }
 }

@@ -2,7 +2,9 @@
 using Application.Orders.Services;
 using Application.Orders.Validators;
 using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using SharedKernel.Middlewares;
 
 namespace Application.StartupExtensions
 {

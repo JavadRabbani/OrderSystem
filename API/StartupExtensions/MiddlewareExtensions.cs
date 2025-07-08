@@ -1,4 +1,6 @@
-﻿namespace API.Extensions
+﻿using SharedKernel.Middlewares;
+
+namespace API.Extensions
 {
     public static class MiddlewareExtensions
     {
@@ -11,6 +13,7 @@
             }
 
             app.UseAuthorization();
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             return app;
         }
     }

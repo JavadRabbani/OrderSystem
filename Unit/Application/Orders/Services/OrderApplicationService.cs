@@ -56,8 +56,8 @@ namespace Unit.Application.Orders.Services
             var result = await service.CreateOrderAsync(command);
 
             // Assert
-            result.Should().NotBeEmpty();
-            result.Should().Be(savedOrderId);
+            result.Data.Should().NotBeEmpty();
+            result.Data.Should().Be(savedOrderId);
 
             validatorMock.Verify(v => v.ValidateAsync(command, It.IsAny<CancellationToken>()), Times.Once);
             eventStoreMock.Verify(s => s.SaveAsync(It.IsAny<IEvent>(), It.IsAny<CancellationToken>()), Times.Once);

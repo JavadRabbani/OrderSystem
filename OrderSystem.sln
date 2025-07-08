@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration", "Integration\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{8609DF9A-328B-4C71-AA0F-32B921D821EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{120057D1-AB79-4126-86F2-A7C187BD2F6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{8609DF9A-328B-4C71-AA0F-32B921D821EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8609DF9A-328B-4C71-AA0F-32B921D821EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8609DF9A-328B-4C71-AA0F-32B921D821EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{120057D1-AB79-4126-86F2-A7C187BD2F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120057D1-AB79-4126-86F2-A7C187BD2F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120057D1-AB79-4126-86F2-A7C187BD2F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120057D1-AB79-4126-86F2-A7C187BD2F6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +71,7 @@ Global
 		{C91FFB90-839D-4FA8-8E0A-6DAD5048573B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1E8D7373-2DC7-4DF9-B464-BBB5427119E8} = {7ED50BFD-A426-4C1F-8FA8-5CBBF85C923E}
 		{8609DF9A-328B-4C71-AA0F-32B921D821EF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{120057D1-AB79-4126-86F2-A7C187BD2F6E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20645773-D091-4DB8-9314-3A9B3F2F0B3E}
